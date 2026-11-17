@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WBCS Study Topics &amp; Drive Links</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased min-h-screen">
+  <!-- Header -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div>
+          <div class="flex items-center gap-2.5">
+            <span class="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-indigo-600 text-white font-bold text-sm shadow-sm">WB</span>
+            <div>
+              <h1 class="text-lg sm:text-xl font-bold text-slate-900 leading-tight">WBCS Study Topics &amp; Drive Hub</h1>
+              <p class="text-xs sm:text-sm text-slate-500">Topics, Notes Hub folders &amp; PYQs hyperlinked directly to Google Drive</p>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <button id="btnJumpToday" type="button" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium bg-amber-50 text-amber-800 border border-amber-200 hover:bg-amber-100 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            Today (Nov 16)
+          </button>
+          <a href="https://drive.google.com/drive/folders/1Jian1fACkRPvcp-nkZBtj6GEqyfIUlh3" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium bg-emerald-600 text-white hover:bg-emerald-700 transition-colors shadow-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></svg>
+            Notes Hub
+          </a>
+          <a href="https://docs.google.com/spreadsheets/d/1jrciwMDaXyojkFGHZLHylFUgeu9wfYVu/edit?usp=drivesdk" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium bg-indigo-600 text-white hover:bg-indigo-700 transition-colors shadow-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+            Source Sheet
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5">
+    <!-- KPI Cards -->
+    <section class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+      <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
+        <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Total Schedule</p>
+        <p id="kpiTotalDays" class="mt-1 text-2xl font-bold text-slate-900">111 Days</p>
+        <p class="mt-0.5 text-xs text-slate-500">Sep 7 – Dec 26, 2026</p>
+      </div>
+      <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
+        <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Linked Days</p>
+        <p id="kpiLinkedDays" class="mt-1 text-2xl font-bold text-indigo-600">0</p>
+        <p class="mt-0.5 text-xs text-slate-500">Days with Drive/web links</p>
+      </div>
+      <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
+        <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Drive Resources</p>
+        <p id="kpiUniqueLinks" class="mt-1 text-2xl font-bold text-emerald-600">0</p>
+        <p class="mt-0.5 text-xs text-slate-500">Sheet links + 29 Hub folders</p>
+      </div>
+      <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
+        <div class="flex items-center justify-between">
+          <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Progress</p>
+          <span id="kpiProgressPct" class="text-xs font-semibold text-indigo-600">0%</span>
+        </div>
+        <p id="kpiCompleted" class="mt-1 text-2xl font-bold text-slate-900">0 / 111</p>
+        <div class="mt-2 w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
+          <div id="kpiProgressBar" class="bg-indigo-600 h-1.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Controls Bar -->
+    <section class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm space-y-4">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+        <!-- View Switcher -->
+        <div class="inline-flex flex-wrap p-1 bg-slate-100 rounded-lg self-start gap-1">
+          <button id="tabTopics" type="button" class="px-3.5 py-1.5 rounded-md text-sm font-medium transition-all bg-white text-slate-900 shadow-sm">
+            By Topic &amp; Drive Links
+          </button>
+          <button id="tabNotesHub" type="button" class="px-3.5 py-1.5 rounded-md text-sm font-medium transition-all text-slate-600 hover:text-slate-900">
+            Notes &amp; PYQ Hub (6 Folders)
+          </button>
+          <button id="tabSchedule" type="button" class="px-3.5 py-1.5 rounded-md text-sm font-medium transition-all text-slate-600 hover:text-slate-900">
+            111-Day Schedule
+          </button>
+        </div>
+
+        <!-- Search & Toggles -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 flex-1 lg:max-w-2xl justify-end">
+          <div class="relative flex-1">
+            <svg class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <input id="searchInput" type="text" placeholder="Search topic, folder, chapter, subject, or day..." class="w-full pl-9 pr-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-colors" />
+          </div>
+          <label id="wrapOnlyLinks" class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 cursor-pointer text-xs sm:text-sm font-medium text-slate-700 select-none">
+            <input id="toggleOnlyLinks" type="checkbox" class="rounded text-indigo-600 focus:ring-indigo-500" />
+            <span>With Links Only</span>
+          </label>
+          <label id="wrapFromToday" class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 cursor-pointer text-xs sm:text-sm font-medium text-slate-700 select-none">
+            <input id="toggleFromToday" type="checkbox" class="rounded text-indigo-600 focus:ring-indigo-500" />
+            <span>From Today</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Subject Filter Pills -->
+      <div id="subjectFilters" class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-0.5"></div>
+    </section>
+
+    <!-- Results Count -->
+    <div class="flex items-center justify-between text-xs sm:text-sm text-slate-500 px-1">
+      <span id="resultsSummary">Loading...</span>
+      <button id="btnClearFilters" type="button" class="hidden text-indigo-600 hover:text-indigo-800 font-medium">Reset filters</button>
+    </div>
+
+    <!-- Content Container -->
+    <section id="contentArea" class="space-y-4"></section>
+  </main>
+
+  <script>
+    const SCHEDULE_DATA = [{"day": "Day 1", "dayNum": 1, "date": "2026-09-07", "alertType": "📖 Study", "subject": "History", "topic": "Ancient India", "scanner": "Indus Valley Civilisation, Vedic Age, Religious Protest Movement, Maurya Period, Gupta Age, Ancient Bengal, South India, Misc", "edvicon": "", "links": [{"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/drive/folders/1454USPFn0U3xVn7Gw9_mFJ7rTYLgR8Q8", "kind": "part2"}]}, {"day": "Day 2", "dayNum": 2, "date": "2026-09-08", "alertType": "📖 Study", "subject": "Geography", "topic": "Physical & General Geo", "scanner": "Physiographic Division & FAQs, Political Geography, Rivers and Projects,  Resources & Industry & Faqs, Physical Geo, Climate", "edvicon": "Gen. Introduction, Physiographic Divisions, Indian Rivers system, Soils of India, Climate of India, Conceptual Physical Geo, Natural Vegetation of India, National Parks in India, Miscellaneous", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/1JsnJw1cxROiBXAomcRmvEY99s4aZ8eq_/view?usp=drivesdk", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1Z2UlppAC1M0fc6FkkncwZvGL9Jh2Vutp/view?usp=drivesdk", "kind": "part2"}]}, {"day": "Day 3", "dayNum": 3, "date": "2026-09-09", "alertType": "📖 Study", "subject": "General Science", "topic": "Physics", "scanner": "Units, Matter Properties, Motion, Gravitation, Work/Energy/Power, Thermodynamics, Light, Sound, Magnetism, Electricity, Nuclear & Applied Physics, FAQs", "edvicon": "Measurements, Kinematics, Laws of Motion, Gravitation, Bulk Matter, Thermodynamics, Kinetic Theory, Waves, Electrostatics, Current/Magnetism, EM Induction, Optics, Atoms/Nuclei, Electronic Devices", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/1pWRVvWtf85g21tkduNrlVO3fbohmh79O/view?usp=drivesdk", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1j-dA1gDkDStV64ST0rTAGkwEPa015_bk/view?usp=drivesdk", "kind": "part2"}]}, {"day": "Day 4", "dayNum": 4, "date": "2026-09-10", "alertType": "📖 Study", "subject": "Polity", "topic": "Indian Polity", "scanner": "Framing/Features of Constitution, Fundamental Rights/Duties & DPSP, Parliament, The Executive, Indian Judiciary, Relation between Centre-State, Panchayati Raj, Emergency Provisions, Commissions-Commitee-Councils, Amendment, Misc, FAQs", "edvicon": "", "links": [{"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1KXBrZS-oMHGahd7HDhiGWsQ3pBecztuA/view?usp=drivesdk", "kind": "part2"}]}, {"day": "Day 5", "dayNum": 5, "date": "2026-09-11", "alertType": "📖 Study", "subject": "Mathematics", "topic": "Arithmetic", "scanner": "", "edvicon": "Number System, HCF & LCM, Ratio/Proportion, Percentage, Profit/Loss, Average/Age, Simple/Compound Interest, Time/Distance/Work,", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/18icD1uwf6nOlMW1NMiIZbi1EOwJFDUW-/view?usp=drivesdk", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://wbcsmocktest.com/math-gi-wbcs-prelim-pyqs/", "kind": "part2"}]}, {"day": "Day 6", "dayNum": 6, "date": "2026-09-12", "alertType": "📖 Study", "subject": "English + Anthropology", "topic": "Grammar & Vocab + Anthropology PYQ", "scanner": "Synonyms, Antonyms, Idioms and Phrases, Vocabulary test, Phrasal Verbs,", "edvicon": "", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/drive/folders/12SNQQR5y9LbPsGOUT3OZ5IBgxucDI2IC?usp=drive_link", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/drive/folders/14VlY-uNvLbG7aLczQA6HKr4yl2kIcgYj?usp=drive_link", "kind": "part2"}]}, {"day": "Day 7", "dayNum": 7, "date": "2026-09-13", "alertType": "🔄 Revision and Mock Test", "subject": "Weekly Covered Topics", "topic": "Revision and Mock Test", "scanner": "", "edvicon": "One Step Up Series \nAncient India - Set No - 6, 15\nGeography - Set No - 4, 18 \nPhysics - Set No - 10 \nIndian Polity - Set No- 11\nMindmap Series -I-Set - 7\nEnglish + Math Practice set from - wbpscupsc.com", "links": [{"label": "Part II (Edvicon / Set)", "url": "https://wbcsmocktest.com/english-wbcs-prelim-pyqs/", "kind": "part2"}, {"label": "Edvicon Reference", "url": "http://wbpscupsc.com/", "kind": "other"}]}, {"day": "Day 8", "dayNum": 8, "date": "2026-09-14", "alertType": "📖 Study", "subject": "History", "topic": "Ancient India", "scanner": "", "edvicon": "Pre-Historic Culture, Indus Valley Civilization, Rig-Vedic Society, Pre Maurya & Mauryan Empire, Post Mauryan India, The Guptas", "links": [{"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1Ftk06gw7Zf7_6u6ajQHb4yfM_9NEdQHY/view?usp=drivesdk", "kind": "part2"}]}, {"day": "Day 9", "dayNum": 9, "date": "2026-09-15", "alertType": "📖 Study", "subject": "Geography", "topic": "Human & Economic Geo", "scanner": "Agriculture & Irrigation, Settlement Geography, Demography, Economic Geo", "edvicon": "", "links": [{"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1MQrJ75l9PyBdUsgeziCYemjtvcPffbAF/view?usp=drivesdk", "kind": "part2"}]}, {"day": "Day 10", "dayNum": 10, "date": "2026-09-16", "alertType": "📖 Study", "subject": "General Science", "topic": "Chemistry", "scanner": "Matter Nature, Gaseous Law, Chemical/Redox Reaction, Atomic Structure, Bonding/Periodic Table, Acids/Bases/Salts, Metals/Metallurgy, Industrial/Applied Chem, Radioactivity, FAQs", "edvicon": "Periodic Table, Radioactivity, Metals/Nonmetals, Acids/Bases, Chem in Daily Life, Solutions, Food/Fuel Chem, States of Matter, Kinetics, Bonding, Organic/Solid State", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/1kzqktPoZc40hxd_6GrvJahlh2krPqlMW/view?usp=drivesdk", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1qbf7SemPrPDKmDk1XSbHMpclebG6pu5B/view?usp=drivesdk", "kind": "part2"}]}, {"day": "Day 11", "dayNum": 11, "date": "2026-09-17", "alertType": "📖 Study", "subject": "Polity", "topic": "Indian Polity", "scanner": "", "edvicon": "Constitutional Dev, Constituent Assembly, The Preamble, States and Union Territeories, The Citizenship, Fundamental Rights/Duties/DPSP, The President/VP/PM/Governor, The Parliament, Council of Ministers, State Legislature, Judiciary, The Supreme Court, The High Court,  The attorney general and the CAG,  UPSC/State PSC/Lokpal and Important Commission, The Finance Commission, Election Commission, Centre-State relation, Emergency Provision, Panchayati Raj & Community Development, Planning Commission/NITI Aayog, official Language, Article-Parts-Schedules, Amendments, Political Parties, National Symbols, Special Provision to certain Class, The Governance System, International Issues, Miscellaneous", "links": [{"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/13fwiuYW0Xof3ZGZvlB97CTR1WCPPxrHm/view?usp=drivesdk", "kind": "part2"}, {"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1Oy4b7Snj6hpFcNn9VDhloxzB2gpSjeeE/view?usp=drivesdk", "kind": "part2"}]}, {"day": "Day 12", "dayNum": 12, "date": "2026-09-18", "alertType": "📖 Study", "subject": "Reasoning", "topic": "General Intelligence", "scanner": "", "edvicon": "Mathematical Operations, Classification, Arranging in order, Alphabet Problem, Blood Relation, Direction Sense, Number, Row, Rank's Problems, Analogy, Coding & Decoding, Matrix Coding, Series, Artificial Values & Missing Number, Matrix Problem.", "links": [{"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1AK0zqqwGawLn_tPYUCyCqT003EjvbqA-/view?usp=drive_link", "kind": "part2"}]}, {"day": "Day 13", "dayNum": 13, "date": "2026-09-19", "alertType": "📖 Study", "subject": "English", "topic": "Grammar & Vocab", "scanner": "Words bearing more than one meaning, Use of appropriate and qualifying words preposition, Noun/pronoun/ Adjective Verb", "edvicon": "", "links": [{"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/drive/folders/1D4lXlz2jFyVCfPuJKLVFEtOGpn9QWifG", "kind": "part2"}]}, {"day": "Day 14", "dayNum": 14, "date": "2026-09-20", "alertType": "🔄 Revision and Mock Test", "subject": "Weekly Covered Topics", "topic": "Revision and Mock Test", "scanner": "Weekly Consolidated Revision and Mock Test", "edvicon": "", "links": []}, {"day": "Day 15", "dayNum": 15, "date": "2026-09-21", "alertType": "📖 Study", "subject": "History", "topic": "Medieval India", "scanner": "Regional Kingdom, Sultanate Age, Mughal Empire, Regional Power, Misc, Indian History FAQs", "edvicon": "Early Medieval India, Cultural trends, Sultanate of Delhi, Provincial Kingdoms, Religious & Peasant Movements, Mughal Empire & Decline", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/drive/folders/1zE3LAEql4BNyK306jLeurn6uLae6AV-L?usp=drive_link", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1VCOrTFrNrwJXwrsUJk042gdL2BZcTTRK/view?usp=drivesdk", "kind": "part2"}]}, {"day": "Day 16", "dayNum": 16, "date": "2026-09-22", "alertType": "📖 Study", "subject": "Geography", "topic": "West Bengal & Environment", "scanner": "West Bengal Geography & FAQ, Soil and Vegetation, Environment", "edvicon": "West Bengal Geography, EVS, Misc", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/1Jv6Yqv6MUM9MdBsOcw4Ei3i4R3CuUiJ7/view?usp=drivesdk", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1ZWFaoBl9pX4vbnXlKCdNTsEoOvo4t83k/view?usp=sharing", "kind": "part2"}]}, {"day": "Day 17", "dayNum": 17, "date": "2026-09-23", "alertType": "📖 Study", "subject": "General Science", "topic": "Biology + Environment + Science & Tech", "scanner": "Cell, Animal Kingdom, Tissue, Hormones, Vitamins, Excertion, Human Microbiology, Body Systems (Cardio, Muscular, Nervous, Digestive), Genetics, Plant Morphology, Ecology", "edvicon": "Ecology, Immunology, Microbiology, Blood, Plant Anatomy, Biochemistry, Human Physiology, Cell Biology, Reproduction, Biotechnology, Classification, Genetics, Evolution", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/1y1npl5pNCwDWCREPtOs4nnfpIKEJw-ir/view?usp=drivesdk", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1URqTbqeNrDSavjteRvpzWDukAcRFoJbG/view?usp=drivesdk", "kind": "part2"}]}, {"day": "Day 18", "dayNum": 18, "date": "2026-09-24", "alertType": "📖 Study", "subject": "Economy", "topic": "Indian Economy", "scanner": "Agriculture, Banking system of India FAQs, Basic concept of Economics, Current Issues, Five Year Plans of India, indian Fiscal & Monetary System, Industry & its reform & LPG , International Org, some basic problemsof India, misc, FAQs", "edvicon": "", "links": [{"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1fLedcIWLFKAvuZ6i1PCQgolstCXcjK_7/view?usp=drivesdk", "kind": "part2"}]}, {"day": "Day 19", "dayNum": 19, "date": "2026-09-25", "alertType": "📖 Study", "subject": "Mathematics", "topic": "Arithmetic", "scanner": "", "edvicon": "Pipe/Cisterns, Boat/Stream, Clock, Partnership, Mixture & Allegation, Area/Volume, Geometry, Trigonometry, Advanced Math", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/1YgSm0xdp--BAjzmZFRayJ0f1WcG-GZdc/view?usp=drivesdk", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://wbcsmocktest.com/math-gi-wbcs-prelim-pyqs/", "kind": "part2"}]}, {"day": "Day 20", "dayNum": 20, "date": "2026-09-26", "alertType": "📖 Study", "subject": "History", "topic": "Modern History & INM", "scanner": "Educational & Cultural Dev, Religious/Reform Movement, Revolt of 1857, Governor General & Viceroy, Association Newspapers, Misc, Books, INC, Freedom Struggle, Gandhian Era, Muslim Politics, Subhas Chandra Bose, Misc, INM at a glance", "edvicon": "", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/1yUYkwL--Jvxux3IK0x1mvrz2MlcJpirO/view?usp=drive_link", "kind": "part1"}]}, {"day": "Day 21", "dayNum": 21, "date": "2026-09-27", "alertType": "🔄 Revision and Mock Test", "subject": "Weekly Covered Topics", "topic": "Revision and Mock Test", "scanner": "Weekly Consolidated Revision and Mock Test", "edvicon": "", "links": [{"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/15_5SGp7Iqd1_haLqAdf2BbyJI5aDY1Sn/view?usp=drive_link", "kind": "part2"}]}, {"day": "Day 22", "dayNum": 22, "date": "2026-09-28", "alertType": "📖 Study", "subject": "History", "topic": "Modern History & INM", "scanner": "", "edvicon": "Emergence of European Power, Tribal and Peasant uprisings, Governor General & Viceroy, Revolt of 1857, Socio Religious reform Movements, Indian National Congress, Growth of Nationalism and Struggle for Independence, Indian Freedom Struggle, Last phase of INM, Miscellaneous.", "links": [{"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/18-hyDjuiqodLCeOJkJFM-G2s_hsr3WQl/view?usp=sharing", "kind": "part2"}]}, {"day": "Day 23", "dayNum": 23, "date": "2026-09-29", "alertType": "📖 Study", "subject": "Geography", "topic": "West Bengal & Environment", "scanner": "", "edvicon": "West Bengal Geo, EVS, Miscellaneous", "links": [{"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1ZWFaoBl9pX4vbnXlKCdNTsEoOvo4t83k/view?usp=sharing", "kind": "part2"}]}, {"day": "Day 24", "dayNum": 24, "date": "2026-09-30", "alertType": "📖 Study", "subject": "Antropology", "topic": "Anthropology PYQ", "scanner": "https://drive.google.com/drive/folders/14VlY-uNvLbG7aLczQA6HKr4yl2kIcgYj?usp=sharing", "edvicon": "https://drive.google.com/drive/folders/14VlY-uNvLbG7aLczQA6HKr4yl2kIcgYj?usp=sharing", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/drive/folders/14VlY-uNvLbG7aLczQA6HKr4yl2kIcgYj?usp=sharing", "kind": "part1"}]}, {"day": "Day 25", "dayNum": 25, "date": "2026-10-01", "alertType": "📖 Study", "subject": "Economy", "topic": "Indian Economy", "scanner": "", "edvicon": "Basic Concepts, Banking & RBI, Agriculture, Indian Fiscal & Monetary Policy, Five Year Plans, Committees & Commissions, Industry and Reform, Some Basic Problems, Schemes & Yojnas, Current Issues, Misc", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/1hRV54Sj0rP3JeH7_s5sUKiM7gJCRps7W/view?usp=sharing", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1-BtojJIvYeCIXUn7WnWBnjAjfLcKpfex/view?usp=drive_link", "kind": "part2"}]}, {"day": "Day 26", "dayNum": 26, "date": "2026-10-02", "alertType": "📖 Study", "subject": "Reasoning", "topic": "General Intelligence", "scanner": "", "edvicon": "Time, Distance and Calender, Analytical Reasoning, Syollogism, Seating Arrangement, Puzzles, Conclusions, Mathematical Problems, Analogy, Series, Mirror and Water Image, Counting of Geometrical Figures, Cubes and Dices, Direction Sense, Number, Row, Rank's Problems, Analogy, Coding & Decoding, Matrix Coding, Series, Artificial Values & Missing Number, Matrix Problem.", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/1t3MrOMIcLrXwS4eKH_sGDhKBRUOyy2En/view?usp=sharing", "kind": "part1"}]}, {"day": "Day 27", "dayNum": 27, "date": "2026-10-03", "alertType": "📖 Study", "subject": "General Science", "topic": "Biology + Environment + Science & Tech", "scanner": "Cell, Animal Kingdom, Tissue, Hormones, Vitamins, Excertion, Human Microbiology, Body Systems (Cardio, Muscular, Nervous, Digestive), Genetics, Plant Morphology, Ecology", "edvicon": "Ecology, Immunology, Microbiology, Blood, Plant Anatomy, Biochemistry, Human Physiology, Cell Biology, Reproduction, Biotechnology, Classification, Genetics, Evolution, Environment, Science & Technology", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/1y1npl5pNCwDWCREPtOs4nnfpIKEJw-ir/view?usp=drivesdk", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1URqTbqeNrDSavjteRvpzWDukAcRFoJbG/view?usp=drivesdk", "kind": "part2"}]}, {"day": "Day 28", "dayNum": 28, "date": "2026-10-04", "alertType": "🔄 Revision and Mock Test", "subject": "Weekly Covered Topics", "topic": "Revision and Mock Test", "scanner": "Weekly Consolidated Revision and Mock Test", "edvicon": "", "links": []}, {"day": "Day 29", "dayNum": 29, "date": "2026-10-05", "alertType": "📖 Study", "subject": "History", "topic": "Ancient India", "scanner": "Indus Valley Civilisation, Vedic Age, Religious Protest Movement, Maurya Period, Gupta Age, Ancient Bengal, South India, Misc", "edvicon": "", "links": [{"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/drive/folders/1454USPFn0U3xVn7Gw9_mFJ7rTYLgR8Q8", "kind": "part2"}]}, {"day": "Day 30", "dayNum": 30, "date": "2026-10-06", "alertType": "📖 Study", "subject": "Geography", "topic": "Physical & General Geo", "scanner": "Physiographic Division & FAQs, Political Geography, Rivers and Projects, Physical Geo, Climate", "edvicon": "Gen. Introduction, Physiographic Divisions, Indian Rivers system, Soils of India, Climate of India, Conceptual Physical Geo, Natural Vegetation of India, National Parks in India, Miscellaneous", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/1JsnJw1cxROiBXAomcRmvEY99s4aZ8eq_/view?usp=drivesdk", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1Z2UlppAC1M0fc6FkkncwZvGL9Jh2Vutp/view?usp=drivesdk", "kind": "part2"}]}, {"day": "Day 31", "dayNum": 31, "date": "2026-10-07", "alertType": "📖 Study", "subject": "General Science", "topic": "Physics", "scanner": "Units, Matter Properties, Motion, Gravitation, Work/Energy/Power, Thermodynamics, Light, Sound, Magnetism, Electricity, Nuclear & Applied Physics, FAQs", "edvicon": "Measurements, Kinematics, Laws of Motion, Gravitation, Bulk Matter, Thermodynamics, Kinetic Theory, Waves, Electrostatics, Current/Magnetism, EM Induction, Optics, Atoms/Nuclei, Electronic Devices", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/1pWRVvWtf85g21tkduNrlVO3fbohmh79O/view?usp=drivesdk", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1j-dA1gDkDStV64ST0rTAGkwEPa015_bk/view?usp=drivesdk", "kind": "part2"}]}, {"day": "Day 32", "dayNum": 32, "date": "2026-10-08", "alertType": "📖 Study", "subject": "Polity", "topic": "Indian Polity", "scanner": "Framing/Features of Constitution, Fundamental Rights/Duties & DPSP, Parliament, The Executive, Indian Judiciary, Relation between Centre-State, Panchayati Raj, Emergency Provisions, Commissions-Commitee-Councils, Amendment, Misc, FAQs", "edvicon": "", "links": []}, {"day": "Day 33", "dayNum": 33, "date": "2026-10-09", "alertType": "📖 Study", "subject": "Mathematics", "topic": "Arithmetic", "scanner": "", "edvicon": "Number System, HCF & LCM, Ratio/Proportion, Percentage, Profit/Loss, Average/Age, Simple/Compound Interest, Time/Distance/Work,", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/18icD1uwf6nOlMW1NMiIZbi1EOwJFDUW-/view?usp=drivesdk", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://wbcsmocktest.com/math-gi-wbcs-prelim-pyqs/", "kind": "part2"}]}, {"day": "Day 34", "dayNum": 34, "date": "2026-10-10", "alertType": "📖 Study", "subject": "English + Anthropology", "topic": "Grammar & Vocab + Anthropology PYQ", "scanner": "Synonyms, Antonyms, Idioms and Phrases, Vocabulary test, Phrasal Verbs,", "edvicon": "", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/drive/folders/12SNQQR5y9LbPsGOUT3OZ5IBgxucDI2IC?usp=drive_link", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/drive/folders/14VlY-uNvLbG7aLczQA6HKr4yl2kIcgYj?usp=drive_link", "kind": "part2"}]}, {"day": "Day 35", "dayNum": 35, "date": "2026-10-11", "alertType": "🔄 Revision and Mock Test", "subject": "Weekly Covered Topics", "topic": "Revision and Mock Test", "scanner": "", "edvicon": "One Step Up Series \nAncient India - Set No - 6, 15\nGeography - Set No - 4, 18 \nPhysics - Set No - 10 \nIndian Polity - Set No- 11\nMindmap Series -I-Set - 7\nEnglish + Math Practice set from - wbpscupsc.com", "links": [{"label": "Edvicon Reference", "url": "http://wbpscupsc.com/", "kind": "other"}]}, {"day": "Day 36", "dayNum": 36, "date": "2026-10-12", "alertType": "📖 Study", "subject": "History", "topic": "Ancient India", "scanner": "", "edvicon": "Pre-Historic Culture, Indus Valley Civilization, Rig-Vedic Society, Pre Maurya & Mauryan Empire, Post Mauryan India, The Guptas", "links": [{"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1Ftk06gw7Zf7_6u6ajQHb4yfM_9NEdQHY/view?usp=drivesdk", "kind": "part2"}]}, {"day": "Day 37", "dayNum": 37, "date": "2026-10-13", "alertType": "📖 Study", "subject": "Geography", "topic": "Human & Economic Geo", "scanner": "Resources & Industry & Faqs, Agriculture & Irrigation, Settlement Geography, Demography, Economic Geo", "edvicon": "Resources/Industry/Energy in India, Agriculture/Irrigation, Trade/Transport/Cities in India, Population", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/1MQrJ75l9PyBdUsgeziCYemjtvcPffbAF/view?usp=drivesdk", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/18y8K_oZ7GUzyHG18RwX2LW844m3SYbqo/view?usp=sharing", "kind": "part2"}]}, {"day": "Day 38", "dayNum": 38, "date": "2026-10-14", "alertType": "📖 Study", "subject": "General Science", "topic": "Chemistry", "scanner": "Matter Nature, Gaseous Law, Chemical/Redox Reaction, Atomic Structure, Bonding/Periodic Table, Acids/Bases/Salts, Metals/Metallurgy, Industrial/Applied Chem, Radioactivity, FAQs", "edvicon": "Periodic Table, Radioactivity, Metals/Nonmetals, Acids/Bases, Chem in Daily Life, Solutions, Food/Fuel Chem, States of Matter, Kinetics, Bonding, Organic/Solid State", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/1kzqktPoZc40hxd_6GrvJahlh2krPqlMW/view?usp=drivesdk", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1qbf7SemPrPDKmDk1XSbHMpclebG6pu5B/view?usp=drivesdk", "kind": "part2"}]}, {"day": "Day 39", "dayNum": 39, "date": "2026-10-15", "alertType": "📖 Study", "subject": "Polity", "topic": "Indian Polity", "scanner": "", "edvicon": "Constitutional Dev, Constituent Assembly, The Preamble, States and Union Territeories, The Citizenship, Fundamental Rights/Duties/DPSP, The President/VP/PM/Governor, The Parliament, Council of Ministers, State Legislature, Judiciary, The Supreme Court, The High Court,  The attorney general and the CAG,  UPSC/State PSC/Lokpal and Important Commission, The Finance Commission, Election Commission, Centre-State relation, Emergency Provision, Panchayati Raj & Community Development, Planning Commission/NITI Aayog, official Language, Article-Parts-Schedules, Amendments, Political Parties, National Symbols, Special Provision to certain Class, The Governance System, International Issues, Miscellaneous", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/13fwiuYW0Xof3ZGZvlB97CTR1WCPPxrHm/view?usp=drive_link", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1Oy4b7Snj6hpFcNn9VDhloxzB2gpSjeeE/view?usp=drive_link", "kind": "part2"}]}, {"day": "Day 40", "dayNum": 40, "date": "2026-10-16", "alertType": "📖 Study", "subject": "Reasoning", "topic": "General Intelligence", "scanner": "", "edvicon": "Mathematical Operations, Classification, Arranging in order, Alphabet Problem, Blood Relation, Direction Sense, Number, Row, Rank's Problems, Analogy, Coding & Decoding, Matrix Coding, Series, Artificial Values & Missing Number, Matrix Problem.", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/1AK0zqqwGawLn_tPYUCyCqT003EjvbqA-/view?usp=drive_link", "kind": "part1"}]}, {"day": "Day 41", "dayNum": 41, "date": "2026-10-17", "alertType": "📖 Study", "subject": "English", "topic": "Grammar & Vocab", "scanner": "Words bearing more than one meaning, Use of appropriate and qualifying words preposition, Noun/pronoun/ Adjective Verb", "edvicon": "", "links": [{"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/drive/folders/1D4lXlz2jFyVCfPuJKLVFEtOGpn9QWifG", "kind": "part2"}]}, {"day": "Day 42", "dayNum": 42, "date": "2026-10-18", "alertType": "🔄 Revision and Mock Test", "subject": "Weekly Covered Topics", "topic": "Revision and Mock Test", "scanner": "Weekly Consolidated Revision and Mock Test", "edvicon": "", "links": []}, {"day": "Day 43", "dayNum": 43, "date": "2026-10-19", "alertType": "📖 Study", "subject": "History", "topic": "Medieval India", "scanner": "Regional Kingdom, Sultanate Age, Mughal Empire, Regional Power, Misc, Indian History FAQs", "edvicon": "Early Medieval India, Cultural trends, Sultanate of Delhi, Provincial Kingdoms, Religious & Peasant Movements, Mughal Empire & Decline", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/drive/folders/1zE3LAEql4BNyK306jLeurn6uLae6AV-L?usp=drive_link", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1VCOrTFrNrwJXwrsUJk042gdL2BZcTTRK/view?usp=drivesdk", "kind": "part2"}]}, {"day": "Day 44", "dayNum": 44, "date": "2026-10-20", "alertType": "📖 Study", "subject": "Geography", "topic": "West Bengal & Environment", "scanner": "West Bengal Geography & FAQ, Soil and Vegetation, Environment", "edvicon": "West Bengal Geography, EVS, Misc", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/1Jv6Yqv6MUM9MdBsOcw4Ei3i4R3CuUiJ7/view?usp=drivesdk", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1ZWFaoBl9pX4vbnXlKCdNTsEoOvo4t83k/view?usp=sharing", "kind": "part2"}]}, {"day": "Day 45", "dayNum": 45, "date": "2026-10-21", "alertType": "📖 Study", "subject": "General Science", "topic": "Biology + Environment + Science & Tech + General Knowledge", "scanner": "Cell, Animal Kingdom, Tissue, Hormones, Vitamins, Excertion, Human Microbiology, Body Systems (Cardio, Muscular, Nervous, Digestive), Genetics, Plant Morphology, Ecology", "edvicon": "Ecology, Immunology, Microbiology, Blood, Plant Anatomy, Biochemistry, Human Physiology, Cell Biology, Reproduction, Biotechnology, Classification, Genetics, Evolution, Environment, Science & Technology , General Knowledge", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/1y1npl5pNCwDWCREPtOs4nnfpIKEJw-ir/view?usp=drivesdk", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1URqTbqeNrDSavjteRvpzWDukAcRFoJbG/view?usp=drivesdk", "kind": "part2"}]}, {"day": "Day 46", "dayNum": 46, "date": "2026-10-22", "alertType": "📖 Study", "subject": "Economy", "topic": "Indian Economy", "scanner": "Agriculture, Banking system of India FAQs, Basic concept of Economics, Current Issues, Five Year Plans of India, indian Fiscal & Monetary System, Industry & its reform & LPG , International Org, some basic problemsof India, misc, FAQs", "edvicon": "", "links": [{"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1fLedcIWLFKAvuZ6i1PCQgolstCXcjK_7/view?usp=drivesdk", "kind": "part2"}]}, {"day": "Day 47", "dayNum": 47, "date": "2026-10-23", "alertType": "📖 Study", "subject": "Mathematics", "topic": "Arithmetic", "scanner": "", "edvicon": "Pipe/Cisterns, Boat/Stream, Clock, Partnership, Mixture & Allegation, Area/Volume, Geometry, Trigonometry, Advanced Math", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/1YgSm0xdp--BAjzmZFRayJ0f1WcG-GZdc/view?usp=drivesdk", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://wbcsmocktest.com/math-gi-wbcs-prelim-pyqs/", "kind": "part2"}]}, {"day": "Day 48", "dayNum": 48, "date": "2026-10-24", "alertType": "📖 Study", "subject": "History", "topic": "Modern History & INM", "scanner": "Educational & Cultural Dev, Religious/Reform Movement, Revolt of 1857, Governor General & Viceroy, Association Newspapers, Misc, Books, INC, Freedom Struggle, Gandhian Era, Muslim Politics, Subhas Chandra Bose, Misc, INM at a glance", "edvicon": "", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/1yUYkwL--Jvxux3IK0x1mvrz2MlcJpirO/view?usp=drive_link", "kind": "part1"}]}, {"day": "Day 49", "dayNum": 49, "date": "2026-10-25", "alertType": "🔄 Revision and Mock Test", "subject": "Weekly Covered Topics", "topic": "Revision and Mock Test", "scanner": "Weekly Consolidated Revision and Mock Test", "edvicon": "", "links": []}, {"day": "Day 50", "dayNum": 50, "date": "2026-10-26", "alertType": "📖 Study", "subject": "History", "topic": "Modern History & INM", "scanner": "", "edvicon": "Emergence of European Power, Tribal and Peasant uprisings, Governor General & Viceroy, Revolt of 1857, Socio Religious reform Movements, Indian National Congress, Growth of Nationalism and Struggle for Independence, Indian Freedom Struggle, Last phase of INM, Miscellaneous.", "links": [{"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/18-hyDjuiqodLCeOJkJFM-G2s_hsr3WQl/view?usp=sharing", "kind": "part2"}]}, {"day": "Day 51", "dayNum": 51, "date": "2026-10-27", "alertType": "📖 Study", "subject": "Geography", "topic": "West Bengal & Environment", "scanner": "", "edvicon": "West Bengal Geo, EVS, Miscellaneous", "links": [{"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1ZWFaoBl9pX4vbnXlKCdNTsEoOvo4t83k/view?usp=sharing", "kind": "part2"}]}, {"day": "Day 52", "dayNum": 52, "date": "2026-10-28", "alertType": "📖 Study", "subject": "Antropology", "topic": "Anthropology PYQ", "scanner": "", "edvicon": "", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/drive/folders/14VlY-uNvLbG7aLczQA6HKr4yl2kIcgYj?usp=sharing", "kind": "part1"}]}, {"day": "Day 53", "dayNum": 53, "date": "2026-10-29", "alertType": "📖 Study", "subject": "Economy", "topic": "Indian Economy", "scanner": "", "edvicon": "Basic Concepts, Banking & RBI, Agriculture, Indian Fiscal & Monetary Policy, Five Year Plans, Committees & Commissions, Industry and Reform, Some Basic Problems, Schemes & Yojnas, Current Issues, Misc", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/1hRV54Sj0rP3JeH7_s5sUKiM7gJCRps7W/view?usp=sharing", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1-BtojJIvYeCIXUn7WnWBnjAjfLcKpfex/view?usp=drive_link", "kind": "part2"}]}, {"day": "Day 54", "dayNum": 54, "date": "2026-10-30", "alertType": "📖 Study", "subject": "Reasoning", "topic": "General Intelligence", "scanner": "", "edvicon": "Time, Distance and Calender, Analytical Reasoning, Syollogism, Seating Arrangement, Puzzles, Conclusions, Mathematical Problems, Analogy, Series, Mirror and Water Image, Counting of Geometrical Figures, Cubes and Dices, Direction Sense, Number, Row, Rank's Problems, Analogy, Coding & Decoding, Matrix Coding, Series, Artificial Values & Missing Number, Matrix Problem.", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/1t3MrOMIcLrXwS4eKH_sGDhKBRUOyy2En/view?usp=sharing", "kind": "part1"}]}, {"day": "Day 55", "dayNum": 55, "date": "2026-10-31", "alertType": "📖 Study", "subject": "General Science", "topic": "Biology + Environment + Science & Tech + General Knowledge", "scanner": "Cell, Animal Kingdom, Tissue, Hormones, Vitamins, Excertion, Human Microbiology, Body Systems (Cardio, Muscular, Nervous, Digestive), Genetics, Plant Morphology, Ecology", "edvicon": "Ecology, Immunology, Microbiology, Blood, Plant Anatomy, Biochemistry, Human Physiology, Cell Biology, Reproduction, Biotechnology, Classification, Genetics, Evolution, Environment, Science & Technology , General Knowledge", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/1y1npl5pNCwDWCREPtOs4nnfpIKEJw-ir/view?usp=drivesdk", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1URqTbqeNrDSavjteRvpzWDukAcRFoJbG/view?usp=drivesdk", "kind": "part2"}]}, {"day": "Day 56", "dayNum": 56, "date": "2026-11-01", "alertType": "🔄 Revision and Mock Test", "subject": "Weekly Covered Topics", "topic": "Revision and Mock Test", "scanner": "Weekly Consolidated Revision and Mock Test", "edvicon": "", "links": []}, {"day": "Day 57", "dayNum": 57, "date": "2026-11-02", "alertType": "🔄 Revision and Mock Test", "subject": "History", "topic": "Revision and Mock Test", "scanner": "History full inclding INM", "edvicon": "History full inclding INM", "links": []}, {"day": "Day 58", "dayNum": 58, "date": "2026-11-03", "alertType": "🔄 Revision and Mock Test", "subject": "Geography", "topic": "Revision and Mock Test", "scanner": "Geography Full", "edvicon": "Geography Full", "links": []}, {"day": "Day 59", "dayNum": 59, "date": "2026-11-04", "alertType": "🔄 Revision and Mock Test", "subject": "English + Math + Reasoning", "topic": "Revision and Mock Test", "scanner": "English + Math + Reasoning Full", "edvicon": "English + Math + Reasoning Full", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/drive/folders/1D4lXlz2jFyVCfPuJKLVFEtOGpn9QWifG", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://wbcsmocktest.com/math-gi-wbcs-prelim-pyqs/", "kind": "part2"}]}, {"day": "Day 60", "dayNum": 60, "date": "2026-11-05", "alertType": "🔄 Revision and Mock Test", "subject": "Polity + Economics", "topic": "Revision and Mock Test", "scanner": "Polity + Economics full", "edvicon": "Polity + Economics full", "links": []}, {"day": "Day 61", "dayNum": 61, "date": "2026-11-06", "alertType": "🔄 Revision and Mock Test", "subject": "Antropology", "topic": "Revision and Mock Test", "scanner": "optional paper -I", "edvicon": "optional paper -II", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/drive/folders/14VlY-uNvLbG7aLczQA6HKr4yl2kIcgYj?usp=drive_link", "kind": "part1"}]}, {"day": "Day 62", "dayNum": 62, "date": "2026-11-07", "alertType": "🔄 Revision and Mock Test", "subject": "General Science", "topic": "Revision and Mock Test", "scanner": "General Science Full", "edvicon": "General Science Full", "links": []}, {"day": "Day 63", "dayNum": 63, "date": "2026-11-08", "alertType": "🔄 Revision and Mock Test", "subject": "Preli Full Mock", "topic": "Revision and Mock Test", "scanner": "", "edvicon": "", "links": []}, {"day": "Day 64", "dayNum": 64, "date": "2026-11-09", "alertType": "📖 Study", "subject": "History", "topic": "Ancient India", "scanner": "Indus Valley Civilisation, Vedic Age, Religious Protest Movement, Maurya Period, Gupta Age, Ancient Bengal, South India, Misc", "edvicon": "", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/1Ftk06gw7Zf7_6u6ajQHb4yfM_9NEdQHY/view?usp=drivesdk", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/drive/folders/1454USPFn0U3xVn7Gw9_mFJ7rTYLgR8Q8", "kind": "part2"}]}, {"day": "Day 65", "dayNum": 65, "date": "2026-11-10", "alertType": "📖 Study", "subject": "Geography", "topic": "Physical & General Geo", "scanner": "Physiographic Division & FAQs, Political Geography, Rivers and Projects, Physical Geo, Climate", "edvicon": "Gen. Introduction, Physiographic Divisions, Indian Rivers system, Soils of India, Climate of India, Conceptual Physical Geo, Natural Vegetation of India, National Parks in India, Miscellaneous", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/1JsnJw1cxROiBXAomcRmvEY99s4aZ8eq_/view?usp=drivesdk", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1Z2UlppAC1M0fc6FkkncwZvGL9Jh2Vutp/view?usp=drivesdk", "kind": "part2"}]}, {"day": "Day 66", "dayNum": 66, "date": "2026-11-11", "alertType": "📖 Study", "subject": "General Science", "topic": "Physics", "scanner": "Units, Matter Properties, Motion, Gravitation, Work/Energy/Power, Thermodynamics, Light, Sound, Magnetism, Electricity, Nuclear & Applied Physics, FAQs", "edvicon": "Measurements, Kinematics, Laws of Motion, Gravitation, Bulk Matter, Thermodynamics, Kinetic Theory, Waves, Electrostatics, Current/Magnetism, EM Induction, Optics, Atoms/Nuclei, Electronic Devices", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/1pWRVvWtf85g21tkduNrlVO3fbohmh79O/view?usp=drivesdk", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1j-dA1gDkDStV64ST0rTAGkwEPa015_bk/view?usp=drivesdk", "kind": "part2"}]}, {"day": "Day 67", "dayNum": 67, "date": "2026-11-12", "alertType": "📖 Study", "subject": "Polity", "topic": "Indian Polity", "scanner": "Framing/Features of Constitution, Fundamental Rights/Duties & DPSP, Parliament, The Executive, Indian Judiciary, Relation between Centre-State, Panchayati Raj, Emergency Provisions, Commissions-Commitee-Councils, Amendment, Misc, FAQs", "edvicon": "", "links": []}, {"day": "Day 68", "dayNum": 68, "date": "2026-11-13", "alertType": "📖 Study", "subject": "Mathematics", "topic": "Arithmetic", "scanner": "", "edvicon": "Number System, HCF & LCM, Ratio/Proportion, Percentage, Profit/Loss, Average/Age, Simple/Compound Interest, Time/Distance/Work,", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/18icD1uwf6nOlMW1NMiIZbi1EOwJFDUW-/view?usp=drivesdk", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://wbcsmocktest.com/math-gi-wbcs-prelim-pyqs/", "kind": "part2"}]}, {"day": "Day 69", "dayNum": 69, "date": "2026-11-14", "alertType": "📖 Study", "subject": "English + Anthropology", "topic": "Grammar & Vocab + Anthropology PYQ", "scanner": "Synonyms, Antonyms, Idioms and Phrases, Vocabulary test, Phrasal Verbs,", "edvicon": "", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/drive/folders/12SNQQR5y9LbPsGOUT3OZ5IBgxucDI2IC?usp=drive_link", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/drive/folders/14VlY-uNvLbG7aLczQA6HKr4yl2kIcgYj?usp=drive_link", "kind": "part2"}]}, {"day": "Day 70", "dayNum": 70, "date": "2026-11-15", "alertType": "🔄 Revision and Mock Test", "subject": "Weekly Covered Topics", "topic": "Revision and Mock Test", "scanner": "", "edvicon": "One Step Up Series \nAncient India - Set No - 6, 15\nGeography - Set No - 4, 18 \nPhysics - Set No - 10 \nIndian Polity - Set No- 11\nMindmap Series -I-Set - 7\nEnglish + Math Practice set from - wbpscupsc.com", "links": [{"label": "Edvicon Reference", "url": "http://wbpscupsc.com/", "kind": "other"}]}, {"day": "Day 71", "dayNum": 71, "date": "2026-11-16", "alertType": "📖 Study", "subject": "History", "topic": "Ancient India", "scanner": "", "edvicon": "Pre-Historic Culture, Indus Valley Civilization, Rig-Vedic Society, Pre Maurya & Mauryan Empire, Post Mauryan India, The Guptas", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/drive/folders/1454USPFn0U3xVn7Gw9_mFJ7rTYLgR8Q8", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1Ftk06gw7Zf7_6u6ajQHb4yfM_9NEdQHY/view?usp=drivesdk", "kind": "part2"}]}, {"day": "Day 72", "dayNum": 72, "date": "2026-11-17", "alertType": "📖 Study", "subject": "Geography", "topic": "Human & Economic Geo", "scanner": "Resources & Industry & Faqs, Agriculture & Irrigation, Settlement Geography, Demography, Economic Geo", "edvicon": "Resources/Industry/Energy in India, Agriculture/Irrigation, Trade/Transport/Cities in India, Population", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/1MQrJ75l9PyBdUsgeziCYemjtvcPffbAF/view?usp=drivesdk", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/18y8K_oZ7GUzyHG18RwX2LW844m3SYbqo/view?usp=sharing", "kind": "part2"}]}, {"day": "Day 73", "dayNum": 73, "date": "2026-11-18", "alertType": "📖 Study", "subject": "General Science", "topic": "Chemistry", "scanner": "Matter Nature, Gaseous Law, Chemical/Redox Reaction, Atomic Structure, Bonding/Periodic Table, Acids/Bases/Salts, Metals/Metallurgy, Industrial/Applied Chem, Radioactivity, FAQs", "edvicon": "Periodic Table, Radioactivity, Metals/Nonmetals, Acids/Bases, Chem in Daily Life, Solutions, Food/Fuel Chem, States of Matter, Kinetics, Bonding, Organic/Solid State", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/1kzqktPoZc40hxd_6GrvJahlh2krPqlMW/view?usp=drivesdk", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1qbf7SemPrPDKmDk1XSbHMpclebG6pu5B/view?usp=drivesdk", "kind": "part2"}]}, {"day": "Day 74", "dayNum": 74, "date": "2026-11-19", "alertType": "📖 Study", "subject": "Polity", "topic": "Indian Polity", "scanner": "", "edvicon": "Constitutional Dev, Constituent Assembly, The Preamble, States and Union Territeories, The Citizenship, Fundamental Rights/Duties/DPSP, The President/VP/PM/Governor, The Parliament, Council of Ministers, State Legislature, Judiciary, The Supreme Court, The High Court,  The attorney general and the CAG,  UPSC/State PSC/Lokpal and Important Commission, The Finance Commission, Election Commission, Centre-State relation, Emergency Provision, Panchayati Raj & Community Development, Planning Commission/NITI Aayog, official Language, Article-Parts-Schedules, Amendments, Political Parties, National Symbols, Special Provision to certain Class, The Governance System, International Issues, Miscellaneous", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/13fwiuYW0Xof3ZGZvlB97CTR1WCPPxrHm/view?usp=drive_link", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1Oy4b7Snj6hpFcNn9VDhloxzB2gpSjeeE/view?usp=drive_link", "kind": "part2"}]}, {"day": "Day 75", "dayNum": 75, "date": "2026-11-20", "alertType": "📖 Study", "subject": "Reasoning", "topic": "General Intelligence", "scanner": "", "edvicon": "Mathematical Operations, Classification, Arranging in order, Alphabet Problem, Blood Relation, Direction Sense, Number, Row, Rank's Problems, Analogy, Coding & Decoding, Matrix Coding, Series, Artificial Values & Missing Number, Matrix Problem.", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/1AK0zqqwGawLn_tPYUCyCqT003EjvbqA-/view?usp=drive_link", "kind": "part1"}]}, {"day": "Day 76", "dayNum": 76, "date": "2026-11-21", "alertType": "📖 Study", "subject": "English", "topic": "Grammar & Vocab", "scanner": "Words bearing more than one meaning, Use of appropriate and qualifying words preposition, Noun/pronoun/ Adjective Verb", "edvicon": "", "links": [{"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/drive/folders/1D4lXlz2jFyVCfPuJKLVFEtOGpn9QWifG", "kind": "part2"}]}, {"day": "Day 77", "dayNum": 77, "date": "2026-11-22", "alertType": "🔄 Revision and Mock Test", "subject": "Weekly Covered Topics", "topic": "Revision and Mock Test", "scanner": "Weekly Consolidated Revision and Mock Test", "edvicon": "", "links": []}, {"day": "Day 78", "dayNum": 78, "date": "2026-11-23", "alertType": "📖 Study", "subject": "History", "topic": "Medieval India", "scanner": "Regional Kingdom, Sultanate Age, Mughal Empire, Regional Power, Misc, Indian History FAQs", "edvicon": "Early Medieval India, Cultural trends, Sultanate of Delhi, Provincial Kingdoms, Religious & Peasant Movements, Mughal Empire & Decline", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/drive/folders/1zE3LAEql4BNyK306jLeurn6uLae6AV-L?usp=drive_link", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1VCOrTFrNrwJXwrsUJk042gdL2BZcTTRK/view?usp=drivesdk", "kind": "part2"}]}, {"day": "Day 79", "dayNum": 79, "date": "2026-11-24", "alertType": "📖 Study", "subject": "Geography", "topic": "West Bengal & Environment", "scanner": "West Bengal Geography & FAQ, Soil and Vegetation, Environment", "edvicon": "West Bengal Geography, EVS, Misc", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/1Jv6Yqv6MUM9MdBsOcw4Ei3i4R3CuUiJ7/view?usp=drivesdk", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1ZWFaoBl9pX4vbnXlKCdNTsEoOvo4t83k/view?usp=sharing", "kind": "part2"}]}, {"day": "Day 80", "dayNum": 80, "date": "2026-11-25", "alertType": "📖 Study", "subject": "General Science", "topic": "Biology + Environment + Science & Tech + General Knowledge", "scanner": "Cell, Animal Kingdom, Tissue, Hormones, Vitamins, Excertion, Human Microbiology, Body Systems (Cardio, Muscular, Nervous, Digestive), Genetics, Plant Morphology, Ecology", "edvicon": "Ecology, Immunology, Microbiology, Blood, Plant Anatomy, Biochemistry, Human Physiology, Cell Biology, Reproduction, Biotechnology, Classification, Genetics, Evolution, Environment, Science & Technology , General Knowledge", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/1y1npl5pNCwDWCREPtOs4nnfpIKEJw-ir/view?usp=drivesdk", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1URqTbqeNrDSavjteRvpzWDukAcRFoJbG/view?usp=drivesdk", "kind": "part2"}]}, {"day": "Day 81", "dayNum": 81, "date": "2026-11-26", "alertType": "📖 Study", "subject": "Economy", "topic": "Indian Economy", "scanner": "Agriculture, Banking system of India FAQs, Basic concept of Economics, Current Issues, Five Year Plans of India, indian Fiscal & Monetary System, Industry & its reform & LPG , International Org, some basic problemsof India, misc, FAQs", "edvicon": "", "links": [{"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1fLedcIWLFKAvuZ6i1PCQgolstCXcjK_7/view?usp=drivesdk", "kind": "part2"}]}, {"day": "Day 82", "dayNum": 82, "date": "2026-11-27", "alertType": "📖 Study", "subject": "Mathematics", "topic": "Arithmetic", "scanner": "", "edvicon": "Pipe/Cisterns, Boat/Stream, Clock, Partnership, Mixture & Allegation, Area/Volume, Geometry, Trigonometry, Advanced Math", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/1YgSm0xdp--BAjzmZFRayJ0f1WcG-GZdc/view?usp=drivesdk", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://wbcsmocktest.com/math-gi-wbcs-prelim-pyqs/", "kind": "part2"}]}, {"day": "Day 83", "dayNum": 83, "date": "2026-11-28", "alertType": "📖 Study", "subject": "History", "topic": "Modern History & INM", "scanner": "Educational & Cultural Dev, Religious/Reform Movement, Revolt of 1857, Governor General & Viceroy, Association Newspapers, Misc, Books, INC, Freedom Struggle, Gandhian Era, Muslim Politics, Subhas Chandra Bose, Misc, INM at a glance", "edvicon": "", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/1yUYkwL--Jvxux3IK0x1mvrz2MlcJpirO/view?usp=drive_link", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/18-hyDjuiqodLCeOJkJFM-G2s_hsr3WQl/view?usp=sharing", "kind": "part2"}]}, {"day": "Day 84", "dayNum": 84, "date": "2026-11-29", "alertType": "🔄 Revision and Mock Test", "subject": "Weekly Covered Topics", "topic": "Revision and Mock Test", "scanner": "Weekly Consolidated Revision and Mock Test", "edvicon": "", "links": []}, {"day": "Day 85", "dayNum": 85, "date": "2026-11-30", "alertType": "📖 Study", "subject": "History", "topic": "Modern History & INM", "scanner": "", "edvicon": "Emergence of European Power, Tribal and Peasant uprisings, Governor General & Viceroy, Revolt of 1857, Socio Religious reform Movements, Indian National Congress, Growth of Nationalism and Struggle for Independence, Indian Freedom Struggle, Last phase of INM, Miscellaneous.", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/1yUYkwL--Jvxux3IK0x1mvrz2MlcJpirO/view?usp=drive_link", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/18-hyDjuiqodLCeOJkJFM-G2s_hsr3WQl/view?usp=sharing", "kind": "part2"}]}, {"day": "Day 86", "dayNum": 86, "date": "2026-12-01", "alertType": "📖 Study", "subject": "Geography", "topic": "West Bengal & Environment", "scanner": "", "edvicon": "West Bengal Geo, EVS, Miscellaneous", "links": [{"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1ZWFaoBl9pX4vbnXlKCdNTsEoOvo4t83k/view?usp=sharing", "kind": "part2"}]}, {"day": "Day 87", "dayNum": 87, "date": "2026-12-02", "alertType": "📖 Study", "subject": "Antropology", "topic": "Anthropology PYQ", "scanner": "", "edvicon": "", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/drive/folders/14VlY-uNvLbG7aLczQA6HKr4yl2kIcgYj?usp=sharing", "kind": "part1"}]}, {"day": "Day 88", "dayNum": 88, "date": "2026-12-03", "alertType": "📖 Study", "subject": "Economy", "topic": "Indian Economy", "scanner": "", "edvicon": "Basic Concepts, Banking & RBI, Agriculture, Indian Fiscal & Monetary Policy, Five Year Plans, Committees & Commissions, Industry and Reform, Some Basic Problems, Schemes & Yojnas, Current Issues, Misc", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/1hRV54Sj0rP3JeH7_s5sUKiM7gJCRps7W/view?usp=sharing", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1-BtojJIvYeCIXUn7WnWBnjAjfLcKpfex/view?usp=drive_link", "kind": "part2"}]}, {"day": "Day 89", "dayNum": 89, "date": "2026-12-04", "alertType": "📖 Study", "subject": "Reasoning", "topic": "General Intelligence", "scanner": "", "edvicon": "Time, Distance and Calender, Analytical Reasoning, Syollogism, Seating Arrangement, Puzzles, Conclusions, Mathematical Problems, Analogy, Series, Mirror and Water Image, Counting of Geometrical Figures, Cubes and Dices, Direction Sense, Number, Row, Rank's Problems, Analogy, Coding & Decoding, Matrix Coding, Series, Artificial Values & Missing Number, Matrix Problem.", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/1t3MrOMIcLrXwS4eKH_sGDhKBRUOyy2En/view?usp=sharing", "kind": "part1"}]}, {"day": "Day 90", "dayNum": 90, "date": "2026-12-05", "alertType": "📖 Study", "subject": "General Science", "topic": "Biology + Environment + Science & Tech + General Knowledge", "scanner": "Cell, Animal Kingdom, Tissue, Hormones, Vitamins, Excertion, Human Microbiology, Body Systems (Cardio, Muscular, Nervous, Digestive), Genetics, Plant Morphology, Ecology", "edvicon": "Ecology, Immunology, Microbiology, Blood, Plant Anatomy, Biochemistry, Human Physiology, Cell Biology, Reproduction, Biotechnology, Classification, Genetics, Evolution, Environment, Science & Technology , General Knowledge", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/file/d/1y1npl5pNCwDWCREPtOs4nnfpIKEJw-ir/view?usp=drivesdk", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://drive.google.com/file/d/1URqTbqeNrDSavjteRvpzWDukAcRFoJbG/view?usp=drivesdk", "kind": "part2"}]}, {"day": "Day 91", "dayNum": 91, "date": "2026-12-06", "alertType": "🔄 Revision and Mock Test", "subject": "Weekly Covered Topics", "topic": "Revision and Mock Test", "scanner": "Weekly Consolidated Revision and Mock Test", "edvicon": "", "links": []}, {"day": "Day 92", "dayNum": 92, "date": "2026-12-07", "alertType": "🔄 Revision and Mock Test", "subject": "History Revise + Preli Full Mock", "topic": "Revision and Full Mock Test", "scanner": "History full Revision inclding INM", "edvicon": "", "links": []}, {"day": "Day 93", "dayNum": 93, "date": "2026-12-08", "alertType": "🔄 Revision and Mock Test", "subject": "Geography Revise + Preli Full Mock", "topic": "Revision and Mock Test", "scanner": "Revise Geography Full", "edvicon": "Geography Full", "links": []}, {"day": "Day 94", "dayNum": 94, "date": "2026-12-09", "alertType": "🔄 Revision and Mock Test", "subject": "English + Math + Reasoning Revise + Preli Full Mock", "topic": "Revision and Mock Test", "scanner": "Revise English + Math + Reasoning Full", "edvicon": "English + Math + Reasoning Full", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/drive/folders/1D4lXlz2jFyVCfPuJKLVFEtOGpn9QWifG", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://wbcsmocktest.com/math-gi-wbcs-prelim-pyqs/", "kind": "part2"}]}, {"day": "Day 95", "dayNum": 95, "date": "2026-12-10", "alertType": "🔄 Revision and Mock Test", "subject": "Polity + Economics Revise + Preli Full Mock", "topic": "Revision and Mock Test", "scanner": "Revise Polity + Economics full", "edvicon": "Polity + Economics full", "links": []}, {"day": "Day 96", "dayNum": 96, "date": "2026-12-11", "alertType": "🔄 Revision and Mock Test", "subject": "Antropology Full Mock", "topic": "Revision and Mock Test", "scanner": "optional paper -I", "edvicon": "optional paper -II", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/drive/folders/14VlY-uNvLbG7aLczQA6HKr4yl2kIcgYj?usp=drive_link", "kind": "part1"}]}, {"day": "Day 97", "dayNum": 97, "date": "2026-12-12", "alertType": "🔄 Revision and Mock Test", "subject": "General Science + Preli Full Mock", "topic": "Revision and Mock Test", "scanner": "Revise General Science Full", "edvicon": "General Science Full", "links": []}, {"day": "Day 98", "dayNum": 98, "date": "2026-12-13", "alertType": "🔄 Revision and Mock Test", "subject": "History Revise + Preli Full Mock", "topic": "Revision and Full Mock Test", "scanner": "History full Revision inclding INM", "edvicon": "", "links": []}, {"day": "Day 99", "dayNum": 99, "date": "2026-12-14", "alertType": "🔄 Revision and Mock Test", "subject": "Geography Revise + Preli Full Mock", "topic": "Revision and Mock Test", "scanner": "Revise Geography Full", "edvicon": "Geography Full", "links": []}, {"day": "Day 100", "dayNum": 100, "date": "2026-12-15", "alertType": "🔄 Revision and Mock Test", "subject": "English + Math + Reasoning Revise + Preli Full Mock", "topic": "Revision and Mock Test", "scanner": "Revise English + Math + Reasoning Full", "edvicon": "English + Math + Reasoning Full", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/drive/folders/1D4lXlz2jFyVCfPuJKLVFEtOGpn9QWifG", "kind": "part1"}, {"label": "Part II (Edvicon / Set)", "url": "https://wbcsmocktest.com/math-gi-wbcs-prelim-pyqs/", "kind": "part2"}]}, {"day": "Day 101", "dayNum": 101, "date": "2026-12-16", "alertType": "🔄 Revision and Mock Test", "subject": "Polity + Economics Revise + Preli Full Mock", "topic": "Revision and Mock Test", "scanner": "Revise Polity + Economics full", "edvicon": "Polity + Economics full", "links": []}, {"day": "Day 102", "dayNum": 102, "date": "2026-12-17", "alertType": "🔄 Revision and Mock Test", "subject": "Antropology Full Mock", "topic": "Revision and Mock Test", "scanner": "optional paper -I", "edvicon": "optional paper -II", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/drive/folders/14VlY-uNvLbG7aLczQA6HKr4yl2kIcgYj?usp=drive_link", "kind": "part1"}]}, {"day": "Day 103", "dayNum": 103, "date": "2026-12-18", "alertType": "🔄 Revision and Mock Test", "subject": "General Science + Preli Full Mock", "topic": "Revision and Mock Test", "scanner": "Revise General Science Full", "edvicon": "General Science Full", "links": []}, {"day": "Day 104", "dayNum": 104, "date": "2026-12-19", "alertType": "🔄 Revision and Mock Test", "subject": "Preli Full Mock", "topic": "Revision and Mock Test", "scanner": "Preli Full Mock", "edvicon": "Preli Full Mock", "links": []}, {"day": "Day 105", "dayNum": 105, "date": "2026-12-20", "alertType": "🔄 Revision and Mock Test", "subject": "Optional Mock", "topic": "Revision and Mock Test", "scanner": "optional paper -I", "edvicon": "optional paper -II", "links": [{"label": "Part I (Scanner / Folder)", "url": "https://drive.google.com/drive/folders/14VlY-uNvLbG7aLczQA6HKr4yl2kIcgYj?usp=drive_link", "kind": "part1"}]}, {"day": "Day 106", "dayNum": 106, "date": "2026-12-21", "alertType": "Mock", "subject": "Preli Full Mock", "topic": "Preli Full Mock", "scanner": "Preli Full Mock", "edvicon": "Preli Full Mock", "links": []}, {"day": "Day 107", "dayNum": 107, "date": "2026-12-22", "alertType": "Mock", "subject": "Preli Full Mock", "topic": "Preli Full Mock", "scanner": "Preli Full Mock", "edvicon": "Preli Full Mock", "links": []}, {"day": "Day 108", "dayNum": 108, "date": "2026-12-23", "alertType": "Mock", "subject": "Preli Full Mock", "topic": "Preli Full Mock", "scanner": "Preli Full Mock", "edvicon": "Preli Full Mock", "links": []}, {"day": "Day 109", "dayNum": 109, "date": "2026-12-24", "alertType": "Mock", "subject": "Preli Full Mock", "topic": "Preli Full Mock", "scanner": "Preli Full Mock", "edvicon": "Preli Full Mock", "links": []}, {"day": "Day 110", "dayNum": 110, "date": "2026-12-25", "alertType": "Mock", "subject": "Preli Full Mock", "topic": "Preli Full Mock", "scanner": "Preli Full Mock", "edvicon": "Preli Full Mock", "links": []}, {"day": "Day 111", "dayNum": 111, "date": "2026-12-26", "alertType": "Mock", "subject": "Preli Full Mock", "topic": "Preli Full Mock", "scanner": "Preli Full Mock", "edvicon": "Preli Full Mock", "links": []}];
+    const NOTES_HUB = {"title": "WBCS GUIDE NOTES HUB", "url": "https://drive.google.com/drive/folders/1Jian1fACkRPvcp-nkZBtj6GEqyfIUlh3", "folders": [{"name": "WBCS Special GS Classes' Notes", "url": "https://drive.google.com/drive/folders/10A7WBJRk-PhLtKF86Q_lWLSCSDZ7iir8", "category": "GS Class Notes", "description": "Subject-wise special GS class notes", "subfolders": [{"name": "Ancient Indian History", "url": "https://drive.google.com/drive/folders/1FKP25F0Ae8pt950LOGgYNt2zAZRuYpEn", "subjects": ["History"], "topicHint": "Ancient India"}, {"name": "Modern Indian History", "url": "https://drive.google.com/drive/folders/1gISjZXVYgsJeW2gsxxpgKCng6GFV7shl", "subjects": ["History"], "topicHint": "Modern History & INM"}, {"name": "Indian Geography", "url": "https://drive.google.com/drive/folders/1ye-2HASyR-Mn7qzDcjMypaBnBCEEpBq2", "subjects": ["Geography"], "topicHint": ""}, {"name": "Indian Polity", "url": "https://drive.google.com/drive/folders/15b7Z_3Jmz-TxcOyw86zBpEa9HtLtpWOu", "subjects": ["Polity"], "topicHint": ""}]}, {"name": "WBCS PRELIMS PYQs", "url": "https://drive.google.com/drive/folders/1YdNU6AMYp9is915gaHjeGE0yoQdGZ-nj", "category": "Prelims PYQs", "description": "Previous Year Questions for WBCS Prelims", "subfolders": [{"name": "Indian History", "url": "https://drive.google.com/drive/folders/1QdfAlkZqRPi11_yRpwp4DfHjBdZr77HB", "subjects": ["History"], "topicHint": ""}, {"name": "Indian Geography", "url": "https://drive.google.com/drive/folders/1P_ZJgnbGEUWmfuBOAz3CdJb8aNIahx5X", "subjects": ["Geography"], "topicHint": ""}, {"name": "Indian Polity", "url": "https://drive.google.com/drive/folders/1VOOf_wSfhbpThLn9WNLxDRBwWzP4ZutP", "subjects": ["Polity"], "topicHint": ""}, {"name": "General Science", "url": "https://drive.google.com/drive/folders/11hBjeN4bGkj3gu59hSOilLiBR1erfRZy", "subjects": ["General Science"], "topicHint": ""}, {"name": "General Knowledge", "url": "https://drive.google.com/drive/folders/1G0cTSOE9CdjrFv3i6gnmLqeyOXerjYYJ", "subjects": ["General Science"], "topicHint": ""}]}, {"name": "WBCS MAINS PYQs", "url": "https://drive.google.com/drive/folders/1GRJiVabQ2Qgg_XwNSy_78W87ZzKc03yZ", "category": "Mains PYQs", "description": "Previous Year Questions for WBCS Mains", "subfolders": [{"name": "Indian History", "url": "https://drive.google.com/drive/folders/17iXZLWIY1Mzx7aqjywwa5_VpKm9BmtF7", "subjects": ["History"], "topicHint": ""}, {"name": "Indian Geography", "url": "https://drive.google.com/drive/folders/1b_NAe-nI7sp8eFv4BCtiHmQ9ZQX1S0tO", "subjects": ["Geography"], "topicHint": ""}, {"name": "Indian Polity", "url": "https://drive.google.com/drive/folders/1_EaIustdoPyfPNXUYyuDIkk5wE1lwm26", "subjects": ["Polity"], "topicHint": ""}, {"name": "Indian Economy", "url": "https://drive.google.com/drive/folders/1UyuT6cbAtqmKGKyaoF_AZCCy_4TAGhKc", "subjects": ["Economy"], "topicHint": ""}, {"name": "General Science", "url": "https://drive.google.com/drive/folders/1Txz4PITXAZcX5lCz_v4n0oW3D3SD4sLu", "subjects": ["General Science"], "topicHint": ""}]}, {"name": "WBCS GUIDE SUBJECT WISE MCQs", "url": "https://drive.google.com/drive/folders/1EedPOh4NqkigKT7k0H3KiVU5Xzo1lzEG", "category": "Subject MCQs", "description": "Topic and subject-wise MCQ practice sets", "subfolders": [{"name": "Indian History", "url": "https://drive.google.com/drive/folders/1oqnZfXOmXXvJnEPHCTwzKrhDMCJShviP", "subjects": ["History"], "topicHint": ""}, {"name": "Indian Geography", "url": "https://drive.google.com/drive/folders/1XgH2BxdHnCbUaxSIfluZ5F-neD9s0pAY", "subjects": ["Geography"], "topicHint": ""}, {"name": "Indian Polity", "url": "https://drive.google.com/drive/folders/1XLRrXla4npLGpN-biAdIvOWw2MB1SP98", "subjects": ["Polity"], "topicHint": ""}, {"name": "Indian Economy", "url": "https://drive.google.com/drive/folders/1Jb_F5YHO87C8HXhsyxatxoeT2vae1VvA", "subjects": ["Economy"], "topicHint": ""}, {"name": "General Science", "url": "https://drive.google.com/drive/folders/1N2W13ia_vghPWy5hhWAu3hxuHlJzI_Zd", "subjects": ["General Science"], "topicHint": ""}, {"name": "Static & West Bengal GK", "url": "https://drive.google.com/drive/folders/1rRwGnVFnAbUSMRKhfhHDGFHOErqlEvv0", "subjects": ["Geography", "General Science"], "topicHint": ""}]}, {"name": "English Vocabulary", "url": "https://drive.google.com/drive/folders/185G9sagaic0B0yWKiRxujPeIWmz-x4jC", "category": "English", "description": "WBCS vocabulary & idioms collections", "subfolders": [{"name": "WBCS PYQs Vocabulary", "url": "https://drive.google.com/drive/folders/1B17N4te2V5b6BRdPZm17mrTab-yXvB-K", "subjects": ["English"], "topicHint": ""}, {"name": "Idioms & Phrases Alphabetical Collection", "url": "https://drive.google.com/drive/folders/1OytJdSbY4oBQ70W9fk8TWSKXAASQPddX", "subjects": ["English"], "topicHint": ""}]}, {"name": "WBPSC Miscellaneous PYQs", "url": "https://drive.google.com/drive/folders/1vSKThtrXNYfmo2y-GJQJ2_N0Rr_3jt-3", "category": "Misc PYQs", "description": "WBPSC Miscellaneous previous year question papers", "subfolders": []}]};
+    const TODAY_STR = '2026-11-16';
+    const STORAGE_KEY = 'wbcs_study_completed_days_v1';
+
+    const SUBJECT_CATEGORIES = [
+      'All',
+      'History',
+      'Geography',
+      'General Science',
+      'Polity',
+      'Economy',
+      'Mathematics',
+      'Reasoning',
+      'English',
+      'Anthropology',
+      'Revision & Mock'
+    ];
+
+    const SUBJECT_BADGE_COLORS = {
+      'History': 'bg-amber-50 text-amber-800 border-amber-200',
+      'Geography': 'bg-emerald-50 text-emerald-800 border-emerald-200',
+      'General Science': 'bg-sky-50 text-sky-800 border-sky-200',
+      'Polity': 'bg-indigo-50 text-indigo-800 border-indigo-200',
+      'Economy': 'bg-violet-50 text-violet-800 border-violet-200',
+      'Mathematics': 'bg-rose-50 text-rose-800 border-rose-200',
+      'Reasoning': 'bg-orange-50 text-orange-800 border-orange-200',
+      'English': 'bg-teal-50 text-teal-800 border-teal-200',
+      'Anthropology': 'bg-fuchsia-50 text-fuchsia-800 border-fuchsia-200',
+      'Revision & Mock': 'bg-slate-100 text-slate-700 border-slate-300'
+    };
+
+    const state = {
+      view: 'topics', // 'topics' | 'hub' | 'schedule'
+      subject: 'All',
+      search: '',
+      onlyLinks: false,
+      fromToday: false,
+      completedDays: loadCompletedDays()
+    };
+
+    function loadCompletedDays() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return {};
+        const parsed = JSON.parse(raw);
+        return (parsed && typeof parsed === 'object') ? parsed : {};
+      } catch (e) {
+        return {};
+      }
+    }
+
+    function saveCompletedDays() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state.completedDays));
+      } catch (e) {
+        // Ignore storage errors
+      }
+    }
+
+    function normalizeCategory(item) {
+      const s = (item.subject || '').toLowerCase();
+      const a = (item.alertType || '').toLowerCase();
+      if (a.includes('revision') || a.includes('mock') || s.includes('mock') || s.includes('weekly')) {
+        return 'Revision & Mock';
+      }
+      if (s.includes('history')) return 'History';
+      if (s.includes('geography')) return 'Geography';
+      if (s.includes('science')) return 'General Science';
+      if (s.includes('polity')) return 'Polity';
+      if (s.includes('economy') || s.includes('economics')) return 'Economy';
+      if (s.includes('math')) return 'Mathematics';
+      if (s.includes('reason')) return 'Reasoning';
+      if (s.includes('english')) return 'English';
+      if (s.includes('antropology') || s.includes('anthropology')) return 'Anthropology';
+      return 'Revision & Mock';
+    }
+
+    function getBadgeClass(cat) {
+      return SUBJECT_BADGE_COLORS[cat] || 'bg-slate-100 text-slate-700 border-slate-200';
+    }
+
+    function escapeHtml(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function getMatchingHubSubfolders(category, topic) {
+      const matches = [];
+      const topicLower = (topic || '').toLowerCase();
+      NOTES_HUB.folders.forEach(folder => {
+        folder.subfolders.forEach(sub => {
+          if (sub.subjects.includes(category)) {
+            if (sub.topicHint && topicLower && !topicLower.includes(sub.topicHint.toLowerCase().split(' ')[0])) {
+              return;
+            }
+            matches.push({
+              label: `${folder.category}: ${sub.name}`,
+              url: sub.url
+            });
+          }
+        });
+      });
+      return matches;
+    }
+
+    function getFilteredRows() {
+      const q = state.search.trim().toLowerCase();
+      return SCHEDULE_DATA.filter(item => {
+        if (state.onlyLinks && item.links.length === 0) return false;
+        if (state.fromToday && item.date < TODAY_STR) return false;
+        if (state.subject !== 'All') {
+          const cat = normalizeCategory(item);
+          const subjLower = (item.subject || '').toLowerCase();
+          if (state.subject === 'Anthropology') {
+            if (!subjLower.includes('antropology') && !subjLower.includes('anthropology')) return false;
+          } else if (cat !== state.subject) {
+            return false;
+          }
+        }
+        if (q) {
+          const haystack = [
+            item.day,
+            item.date,
+            item.subject,
+            item.topic,
+            item.scanner,
+            item.edvicon
+          ].join(' ').toLowerCase();
+          if (!haystack.includes(q)) return false;
+        }
+        return true;
+      });
+    }
+
+    function renderKPIs() {
+      const total = SCHEDULE_DATA.length;
+      const linkedDays = SCHEDULE_DATA.filter(d => d.links.length > 0).length;
+      const uniqueUrls = new Set();
+      SCHEDULE_DATA.forEach(d => d.links.forEach(l => uniqueUrls.add(l.url)));
+      uniqueUrls.add(NOTES_HUB.url);
+      NOTES_HUB.folders.forEach(f => {
+        uniqueUrls.add(f.url);
+        f.subfolders.forEach(sf => uniqueUrls.add(sf.url));
+      });
+      const completedCount = Object.keys(state.completedDays).filter(k => state.completedDays[k]).length;
+      const pct = total > 0 ? Math.round((completedCount / total) * 100) : 0;
+
+      document.getElementById('kpiTotalDays').textContent = `${total} Days`;
+      document.getElementById('kpiLinkedDays').textContent = String(linkedDays);
+      document.getElementById('kpiUniqueLinks').textContent = String(uniqueUrls.size);
+      document.getElementById('kpiCompleted').textContent = `${completedCount} / ${total}`;
+      document.getElementById('kpiProgressPct').textContent = `${pct}%`;
+      document.getElementById('kpiProgressBar').style.width = `${pct}%`;
+    }
+
+    function renderSubjectFilters() {
+      const container = document.getElementById('subjectFilters');
+      container.innerHTML = SUBJECT_CATEGORIES.map(cat => {
+        const active = state.subject === cat;
+        const cls = active
+          ? 'bg-indigo-600 text-white border-indigo-600 shadow-sm'
+          : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50 hover:text-slate-900';
+        return `<button type="button" data-subject="${escapeHtml(cat)}" class="shrink-0 px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${cls}">${escapeHtml(cat)}</button>`;
+      }).join('');
+    }
+
+    function renderLinkPills(links) {
+      if (!links || links.length === 0) {
+        return `<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium bg-slate-100 text-slate-500">No Drive link in sheet</span>`;
+      }
+      return links.map(l => {
+        const isFolder = l.url.includes('/folders/');
+        const isWeb = !l.url.includes('drive.google.com');
+        let pillCls = 'bg-indigo-50 text-indigo-700 border-indigo-200 hover:bg-indigo-100';
+        if (l.kind === 'part2') pillCls = 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100';
+        if (isWeb) pillCls = 'bg-amber-50 text-amber-800 border-amber-200 hover:bg-amber-100';
+
+        const icon = isFolder
+          ? `<svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></svg>`
+          : `<svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>`;
+
+        return `<a href="${escapeHtml(l.url)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium border transition-colors ${pillCls}">
+          ${icon}
+          <span>${escapeHtml(l.label)}</span>
+          <svg class="w-3 h-3 opacity-70" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>`;
+      }).join('');
+    }
+
+    function renderTopicsView(rows) {
+      const groupsMap = new Map();
+      rows.forEach(item => {
+        const key = `${item.subject}|||${item.topic}`;
+        if (!groupsMap.has(key)) {
+          groupsMap.set(key, {
+            subject: item.subject,
+            topic: item.topic,
+            category: normalizeCategory(item),
+            days: [],
+            scannerSet: new Set(),
+            edviconSet: new Set(),
+            linksMap: new Map()
+          });
+        }
+        const g = groupsMap.get(key);
+        g.days.push(item);
+        if (item.scanner) g.scannerSet.add(item.scanner);
+        if (item.edvicon) g.edviconSet.add(item.edvicon);
+        item.links.forEach(l => {
+          if (!g.linksMap.has(l.url)) {
+            g.linksMap.set(l.url, l);
+          }
+        });
+      });
+
+      const groups = Array.from(groupsMap.values());
+      document.getElementById('resultsSummary').textContent = `Showing ${groups.length} topic groups across ${rows.length} scheduled days`;
+
+      if (groups.length === 0) {
+        return renderEmptyState();
+      }
+
+      return `<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        ${groups.map(g => {
+          const links = Array.from(g.linksMap.values());
+          const hubLinks = getMatchingHubSubfolders(g.category, g.topic);
+          const primaryUrl = links.length > 0 ? links[0].url : (hubLinks.length > 0 ? hubLinks[0].url : null);
+          const badgeCls = getBadgeClass(g.category);
+          const doneCount = g.days.filter(d => state.completedDays[d.day]).length;
+          const scannerText = Array.from(g.scannerSet).join(' • ');
+          const edviconText = Array.from(g.edviconSet).join(' • ');
+
+          const titleHtml = primaryUrl
+            ? `<a href="${escapeHtml(primaryUrl)}" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1.5 text-base sm:text-lg font-semibold text-indigo-700 hover:text-indigo-900 underline decoration-indigo-300 hover:decoration-indigo-600 underline-offset-2">
+                <span>${escapeHtml(g.topic || g.subject)}</span>
+                <svg class="w-4 h-4 shrink-0 text-indigo-500 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+              </a>`
+            : `<span class="text-base sm:text-lg font-semibold text-slate-800">${escapeHtml(g.topic || g.subject)}</span>`;
+
+          const hubLinksHtml = hubLinks.length > 0
+            ? `<div class="space-y-1.5">
+                <p class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Notes Hub Folders</p>
+                <div class="flex flex-wrap gap-1.5">
+                  ${hubLinks.map(hl => `<a href="${escapeHtml(hl.url)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-medium bg-slate-50 text-slate-700 border border-slate-200 hover:bg-indigo-50 hover:text-indigo-700 hover:border-indigo-200 transition-colors">
+                    <svg class="w-3 h-3 shrink-0 text-amber-500" fill="currentColor" viewBox="0 0 20 20"><path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"/></svg>
+                    <span>${escapeHtml(hl.label)}</span>
+                  </a>`).join('')}
+                </div>
+              </div>`
+            : '';
+
+          return `<article class="bg-white rounded-xl border border-slate-200 p-4 sm:p-5 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between gap-3">
+            <div class="space-y-2.5">
+              <div class="flex items-start justify-between gap-2">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${badgeCls}">${escapeHtml(g.subject)}</span>
+                <span class="text-xs font-medium text-slate-500 shrink-0">${doneCount}/${g.days.length} days done</span>
+              </div>
+
+              <div>${titleHtml}</div>
+
+              ${scannerText ? `<p class="text-xs text-slate-600 leading-relaxed"><span class="font-semibold text-slate-700">Scanner:</span> ${escapeHtml(scannerText)}</p>` : ''}
+              ${edviconText ? `<p class="text-xs text-slate-600 leading-relaxed"><span class="font-semibold text-slate-700">Edvicon / Practice:</span> ${escapeHtml(edviconText)}</p>` : ''}
+            </div>
+
+            <div class="pt-3 border-t border-slate-100 space-y-2.5">
+              <div class="flex flex-wrap gap-1.5">
+                ${renderLinkPills(links)}
+              </div>
+              ${hubLinksHtml}
+              <div class="flex flex-wrap items-center gap-1.5">
+                <span class="text-[11px] font-medium text-slate-400 uppercase tracking-wide mr-1">Days:</span>
+                ${g.days.map(d => {
+                  const isToday = d.date === TODAY_STR;
+                  const isDone = !!state.completedDays[d.day];
+                  let chipCls = 'bg-slate-100 text-slate-600 hover:bg-slate-200';
+                  if (isDone) chipCls = 'bg-emerald-100 text-emerald-800 border border-emerald-200';
+                  else if (isToday) chipCls = 'bg-amber-100 text-amber-900 border border-amber-300 font-semibold';
+                  return `<button type="button" data-toggle-day="${escapeHtml(d.day)}" title="${escapeHtml(d.date)} — Click to toggle complete" class="px-2 py-0.5 rounded text-[11px] font-medium transition-colors ${chipCls}">${escapeHtml(d.day)}</button>`;
+                }).join('')}
+              </div>
+            </div>
+          </article>`;
+        }).join('')}
+      </div>`;
+    }
+
+    function renderNotesHubView() {
+      const q = state.search.trim().toLowerCase();
+      const subj = state.subject;
+
+      const filteredFolders = NOTES_HUB.folders.map(folder => {
+        const folderMatchesSearch = !q || folder.name.toLowerCase().includes(q) || folder.description.toLowerCase().includes(q) || folder.category.toLowerCase().includes(q);
+        const matchingSubfolders = folder.subfolders.filter(sf => {
+          const matchesSubj = subj === 'All' || sf.subjects.includes(subj);
+          const matchesQ = !q || folderMatchesSearch || sf.name.toLowerCase().includes(q);
+          return matchesSubj && matchesQ;
+        });
+        const includeTop = (subj === 'All' && folderMatchesSearch) || (subj === 'English' && folder.category === 'English') || matchingSubfolders.length > 0;
+        if (!includeTop) return null;
+        return {
+          ...folder,
+          visibleSubfolders: matchingSubfolders
+        };
+      }).filter(Boolean);
+
+      const totalSubs = filteredFolders.reduce((acc, f) => acc + f.visibleSubfolders.length, 0);
+      document.getElementById('resultsSummary').textContent = `Showing ${filteredFolders.length} main folders and ${totalSubs} subfolders in WBCS GUIDE NOTES HUB`;
+
+      if (filteredFolders.length === 0) {
+        return renderEmptyState();
+      }
+
+      const bannerHtml = `<div class="bg-gradient-to-r from-indigo-600 to-emerald-600 rounded-xl p-5 text-white shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div class="space-y-1">
+          <p class="text-xs font-semibold uppercase tracking-wider text-indigo-100">Shared Google Drive Repository</p>
+          <h2 class="text-lg sm:text-xl font-bold">${escapeHtml(NOTES_HUB.title)}</h2>
+          <p class="text-xs sm:text-sm text-indigo-50">6 main folders &amp; 22 subject-wise subfolders for GS Notes, Prelims PYQs, Mains PYQs, MCQs &amp; Vocabulary</p>
+        </div>
+        <a href="${escapeHtml(NOTES_HUB.url)}" target="_blank" rel="noopener noreferrer" class="shrink-0 inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-white text-indigo-700 font-semibold text-sm hover:bg-indigo-50 transition-colors shadow-sm">
+          <svg class="w-4 h-4 text-amber-500" fill="currentColor" viewBox="0 0 20 20"><path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"/></svg>
+          <span>Open Main Folder</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+      </div>`;
+
+      const cardsHtml = `<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        ${filteredFolders.map(folder => `
+          <article class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between gap-4">
+            <div class="space-y-3">
+              <div class="flex items-start justify-between gap-3">
+                <div class="space-y-1">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700 border border-indigo-200">${escapeHtml(folder.category)}</span>
+                  <h3 class="text-base sm:text-lg font-bold text-slate-900">
+                    <a href="${escapeHtml(folder.url)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-indigo-700 hover:text-indigo-900 underline decoration-indigo-300 hover:decoration-indigo-600 underline-offset-2">
+                      <svg class="w-4 h-4 shrink-0 text-amber-500" fill="currentColor" viewBox="0 0 20 20"><path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"/></svg>
+                      <span>${escapeHtml(folder.name)}</span>
+                    </a>
+                  </h3>
+                  <p class="text-xs text-slate-500">${escapeHtml(folder.description)}</p>
+                </div>
+                <a href="${escapeHtml(folder.url)}" target="_blank" rel="noopener noreferrer" class="shrink-0 inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium bg-slate-100 text-slate-700 hover:bg-indigo-50 hover:text-indigo-700 transition-colors">
+                  <span>Open</span>
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                </a>
+              </div>
+
+              ${folder.visibleSubfolders.length > 0 ? `
+                <div class="pt-3 border-t border-slate-100 space-y-2">
+                  <p class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Subfolders (${folder.visibleSubfolders.length})</p>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    ${folder.visibleSubfolders.map(sf => `
+                      <a href="${escapeHtml(sf.url)}" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between gap-2 px-3 py-2 rounded-lg border border-slate-200 bg-slate-50 hover:bg-indigo-50 hover:border-indigo-200 text-xs font-medium text-slate-800 hover:text-indigo-800 transition-colors">
+                        <span class="inline-flex items-center gap-1.5 truncate">
+                          <svg class="w-3.5 h-3.5 shrink-0 text-amber-500" fill="currentColor" viewBox="0 0 20 20"><path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"/></svg>
+                          <span class="truncate">${escapeHtml(sf.name)}</span>
+                        </span>
+                        <svg class="w-3 h-3 shrink-0 opacity-60" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                      </a>
+                    `).join('')}
+                  </div>
+                </div>
+              ` : `
+                <div class="pt-3 border-t border-slate-100">
+                  <p class="text-xs text-slate-500 italic">Direct question papers folder (click Open above to view all PDFs)</p>
+                </div>
+              `}
+            </div>
+          </article>
+        `).join('')}
+      </div>`;
+
+      return bannerHtml + cardsHtml;
+    }
+
+    function renderScheduleView(rows) {
+      document.getElementById('resultsSummary').textContent = `Showing ${rows.length} of ${SCHEDULE_DATA.length} scheduled days`;
+
+      if (rows.length === 0) {
+        return renderEmptyState();
+      }
+
+      return `<div class="space-y-2.5">
+        ${rows.map(item => {
+          const isToday = item.date === TODAY_STR;
+          const isDone = !!state.completedDays[item.day];
+          const cat = normalizeCategory(item);
+          const badgeCls = getBadgeClass(cat);
+          const primaryUrl = item.links.length > 0 ? item.links[0].url : null;
+
+          const cardBorder = isToday
+            ? 'border-amber-400 ring-2 ring-amber-200 bg-amber-50/30'
+            : (isDone ? 'border-emerald-200 bg-emerald-50/20' : 'border-slate-200 bg-white');
+
+          const topicHtml = primaryUrl
+            ? `<a href="${escapeHtml(primaryUrl)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 font-semibold text-indigo-700 hover:text-indigo-900 underline decoration-indigo-300 hover:decoration-indigo-600 underline-offset-2">
+                <span>${escapeHtml(item.topic || item.subject)}</span>
+                <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+              </a>`
+            : `<span class="font-semibold text-slate-800">${escapeHtml(item.topic || item.subject)}</span>`;
+
+          return `<div id="day-row-${item.dayNum}" class="rounded-xl border p-4 shadow-sm transition-all ${cardBorder}">
+            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+              <div class="flex items-start gap-3">
+                <input type="checkbox" data-toggle-day="${escapeHtml(item.day)}" ${isDone ? 'checked' : ''} class="mt-1 h-4 w-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300 cursor-pointer" aria-label="Mark ${escapeHtml(item.day)} complete" />
+                <div class="space-y-1.5">
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span class="text-sm font-bold text-slate-900">${escapeHtml(item.day)}</span>
+                    <span class="text-xs font-medium text-slate-500">${escapeHtml(item.date)}</span>
+                    ${isToday ? '<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-amber-400 text-amber-950">TODAY</span>' : ''}
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border ${badgeCls}">${escapeHtml(item.subject)}</span>
+                  </div>
+                  <div class="text-sm sm:text-base">${topicHtml}</div>
+                  ${item.scanner ? `<p class="text-xs text-slate-600"><span class="font-semibold text-slate-700">Scanner:</span> ${escapeHtml(item.scanner)}</p>` : ''}
+                  ${item.edvicon ? `<p class="text-xs text-slate-600"><span class="font-semibold text-slate-700">Edvicon:</span> ${escapeHtml(item.edvicon)}</p>` : ''}
+                </div>
+              </div>
+              <div class="flex flex-wrap sm:justify-end gap-1.5 sm:max-w-xs shrink-0 pl-7 sm:pl-0">
+                ${renderLinkPills(item.links)}
+              </div>
+            </div>
+          </div>`;
+        }).join('')}
+      </div>`;
+    }
+
+    function renderEmptyState() {
+      return `<div class="bg-white rounded-xl border border-slate-200 p-10 text-center space-y-2">
+        <p class="text-base font-semibold text-slate-800">No matching topics, folders, or days found</p>
+        <p class="text-sm text-slate-500">Try clearing your search query or switching subject filters.</p>
+      </div>`;
+    }
+
+    function render() {
+      renderKPIs();
+      renderSubjectFilters();
+
+      const tabTopics = document.getElementById('tabTopics');
+      const tabNotesHub = document.getElementById('tabNotesHub');
+      const tabSchedule = document.getElementById('tabSchedule');
+      const activeCls = 'px-3.5 py-1.5 rounded-md text-sm font-medium transition-all bg-white text-slate-900 shadow-sm';
+      const inactiveCls = 'px-3.5 py-1.5 rounded-md text-sm font-medium transition-all text-slate-600 hover:text-slate-900';
+
+      tabTopics.className = state.view === 'topics' ? activeCls : inactiveCls;
+      tabNotesHub.className = state.view === 'hub' ? activeCls : inactiveCls;
+      tabSchedule.className = state.view === 'schedule' ? activeCls : inactiveCls;
+
+      const isHub = state.view === 'hub';
+      document.getElementById('wrapOnlyLinks').classList.toggle('hidden', isHub);
+      document.getElementById('wrapFromToday').classList.toggle('hidden', isHub);
+
+      const hasFilters = state.subject !== 'All' || state.search.trim() !== '' || state.onlyLinks || state.fromToday;
+      document.getElementById('btnClearFilters').classList.toggle('hidden', !hasFilters);
+
+      const contentArea = document.getElementById('contentArea');
+      if (state.view === 'hub') {
+        contentArea.innerHTML = renderNotesHubView();
+      } else {
+        const rows = getFilteredRows();
+        contentArea.innerHTML = state.view === 'topics' ? renderTopicsView(rows) : renderScheduleView(rows);
+      }
+    }
+
+    document.getElementById('tabTopics').addEventListener('click', () => {
+      state.view = 'topics';
+      render();
+    });
+
+    document.getElementById('tabNotesHub').addEventListener('click', () => {
+      state.view = 'hub';
+      render();
+    });
+
+    document.getElementById('tabSchedule').addEventListener('click', () => {
+      state.view = 'schedule';
+      render();
+    });
+
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      state.search = e.target.value;
+      render();
+    });
+
+    document.getElementById('toggleOnlyLinks').addEventListener('change', (e) => {
+      state.onlyLinks = e.target.checked;
+      render();
+    });
+
+    document.getElementById('toggleFromToday').addEventListener('change', (e) => {
+      state.fromToday = e.target.checked;
+      render();
+    });
+
+    document.getElementById('subjectFilters').addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-subject]');
+      if (!btn) return;
+      state.subject = btn.getAttribute('data-subject');
+      render();
+    });
+
+    document.getElementById('btnClearFilters').addEventListener('click', () => {
+      state.subject = 'All';
+      state.search = '';
+      state.onlyLinks = false;
+      state.fromToday = false;
+      document.getElementById('searchInput').value = '';
+      document.getElementById('toggleOnlyLinks').checked = false;
+      document.getElementById('toggleFromToday').checked = false;
+      render();
+    });
+
+    document.getElementById('btnJumpToday').addEventListener('click', () => {
+      state.view = 'schedule';
+      state.subject = 'All';
+      state.search = '';
+      state.onlyLinks = false;
+      state.fromToday = false;
+      document.getElementById('searchInput').value = '';
+      document.getElementById('toggleOnlyLinks').checked = false;
+      document.getElementById('toggleFromToday').checked = false;
+      render();
+      const todayEl = document.getElementById('day-row-71');
+      if (todayEl) {
+        todayEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+
+    document.getElementById('contentArea').addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-toggle-day]');
+      if (!btn) return;
+      const dayKey = btn.getAttribute('data-toggle-day');
+      state.completedDays[dayKey] = !state.completedDays[dayKey];
+      saveCompletedDays();
+      render();
+    });
+
+    render();
+  </script>
+</body>
+</html>
